@@ -4,6 +4,13 @@
 // Created on: June 3 2025
 // This is the Rock, Paper, Scissors game configuration file
 
+ // scene import statements
+ import MenuScene from "./menuScene.js"
+
+
+//create the new scenes 
+const menuScene = new MenuScene()
+
 /**
 * Start Phaser Game.
 */
