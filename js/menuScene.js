@@ -14,7 +14,7 @@ class MenuScene extends Phaser.Scene {
    * This method is the constructor.
    */
   constructor() {
-    super({ key: "menuScene" })
+    super({ key: "menuScene" }) 
 
     this.gamemenuSceneBackground = null
     this.start = null
