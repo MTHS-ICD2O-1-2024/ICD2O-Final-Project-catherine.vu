@@ -4,6 +4,14 @@
 // Created on: June 3 2025
 // This is the Rock, Paper, Scissors game configuration file
 
+ // scene import statements
+ import MenuScene from "./menuScene.js"
+import GameScene from "./gameScene.js"
+
+//create the new scenes 
+const menuScene = new MenuScene()
+const gameScene = new GameScene()
+
 /**
 * Start Phaser Game.
 */
@@ -15,7 +23,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
     },
   },
   //set background color
@@ -29,3 +37,11 @@ const config = {
 
 const game = new Phaser.Game(config)
 //console.log(game)
+
+//load scenes
+//Note: remember any "key" is global and CAN NOT be reused!
+game.scene.add("menuScene", menuScene)
+game.scene.add("gameScene", gameScene)
+
+// the start scene 
+game.scene.start("menuScene")
