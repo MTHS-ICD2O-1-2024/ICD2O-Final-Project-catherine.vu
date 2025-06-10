@@ -1,0 +1,30 @@
+/* Created by: Catherine Vu
+* Created on: June 7 2025
+* This file contains the CSS for index.html
+*/
+.mdl-layout__content {
+  justify-content: center;
+}
+
+.mdl-textfield__error {
+  color: rgb(185, 144, 238);
+}
+
+.page-content {
+  color: rgb(255, 0, 208);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+  text-align: center;
+  justify-content: center;
+}
+
+body {
+  background: #fec3ff;
+}
+
+img {
+  height: 400px;
+  padding-top: 1px;
+  margin-left: 50px;
+  justify-content: center;
+}
