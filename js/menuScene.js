@@ -1,10 +1,10 @@
-/*global Phaser */
+/* global Phaser */
 
-//Copyright (c) 2025 Catherine Vu All Rights Reserved 
+// Copyright (c) 2025 Catherine Vu All rights reserved
 //
 // Created by: Catherine Vu
-//;Created on: June 4 2025
-// This is the Title Scene
+// Created on: May 2025
+// This is the Menu Scene
 
 /**
  * This class is the Menu Scene.
@@ -14,10 +14,10 @@ class MenuScene extends Phaser.Scene {
    * This method is the constructor.
    */
   constructor() {
-    super({ key: "menuScene" }) 
+    super({ key: 'menuScene' })
 
-    this.gamemenuSceneBackground = null
-    this.start = null
+    this.menuSceneBackgroundImage = null
+    this.startButton = null
   }
 
   /**
@@ -27,7 +27,7 @@ class MenuScene extends Phaser.Scene {
    * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
    */
   init(data) {
-    this.cameras.main.setBackgroundColor("#fec3ff")
+    this.cameras.main.setBackgroundColor('#ffffff')
   }
 
   /**
@@ -35,9 +35,9 @@ class MenuScene extends Phaser.Scene {
    * Use it to load assets.
    */
   preload() {
-    console.log("Menu Scene")
-    this.load.image("Background", "./images/gameMenuSceneBackground.png")
-    this.load.image("startButton", "./images/Start.png")
+    console.log('Menu Scene')
+    this.load.image('menuScene', './assets/gameMenuSceneBackground.png')
+    this.load.image('startButton', './assets/Start.png')
   }
 
   /**
@@ -46,13 +46,13 @@ class MenuScene extends Phaser.Scene {
    * @param {object} data Any data passed via ScenePlugin.add() or ScenePlugin.start().
    */
   create(data) {
-    this.gameMenuSceneBackground = this.add.sprite(0, 0, "gameMenuSceneBackground")
+    this.gameMenuSceneBackground = this.add.sprite(0, 0, 'menuScene')
     this.gameMenuSceneBackground.x = 1920 / 2
     this.gameMenuSceneBackground.y = 1080 / 2
 
-    this.start = this.add.sprite(1920 / 2, 1080 / 2 + 100, "Start-Button")
+    this.start = this.add.sprite(1920 / 2, 1080 / 2 + 180, 'startButton')
     this.start.setInteractive({ useHandCursor: true })
-    this.start.on("pointerdown", () => this.clickButton())
+    this.start.on('pointerdown', () => this.clickButton())
   }
 
   /**
@@ -66,7 +66,7 @@ class MenuScene extends Phaser.Scene {
   }
 
   clickButton() {
-    this.scene.start("gameScene")
+    this.scene.start('gameScene')
   }
 }
 
