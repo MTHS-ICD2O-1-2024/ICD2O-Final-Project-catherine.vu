@@ -1,61 +1,73 @@
-/*global Phaser */
+/* global Phaser */
 
-//Copyright (c) 2025 Catherine Vu All Rights Reserved 
+// Copyright (c) 2025 Catherine Vu All rights reserved
 //
 // Created by: Catherine Vu
-//;Created on: June 5 2025
+// Created on: May 2025
 // This is the Game Scene
 
 /**
- * This class is the Game Scene.
+ * This class is the Game Scene scene
  */
-
 class GameScene extends Phaser.Scene {
-  /**
-   * This method is the constructor
-   */
   constructor() {
     super({ key: 'gameScene' })
-
-    this.paper = null
-    this.scissors = null
-    this.rock = null
+    this.background = null
+    this.choiceImage = null
+    this.playerChoice = null
   }
 
   preload() {
-    console.log("Game Scene")
-    this.load.image("scissors", "images/scissors.png")
-    this.load.image("rock", "images/rock.png")
-    this.load.image("paper", "images/paper.png")
-  }
-
- preload () {
-    this.load.image('rock', './images/rock.png')
-    this.load.image('paper', './images/paper.png')
-    this.load.image('scissors', './images/scissors.png')
-    this.load.image('rockButton', './images/rockbutton.png')
-    this.load.image('paperButton', './images/rockbutton.png')
-        this.load.image('scissorsButton', './images/scissorsbutton.png')
+    this.load.image('gameSceneBackground', './assets/gameScenebackground.png')
+    this.load.image('rock', './assets/rock.png')
+    this.load.image('paper', './assets/paper.png')
+    this.load.image('scissors', './assets/scissors.png')
+    this.load.image('scissorsbutton', './assets/scissorsbutton.png')
+    this.load.image('paperbutton', './assets/paperbutton.png')
+    this.load.image('rockbutton', './assets/rockbutton.png')
   }
 
   create() {
-  this.choices = ['rock', 'paper', 'scissors']
+    // Background
+    this.background = this.add.image(0, 0, 'gameSceneBackground').setOrigin(0, 0).setScale(2.0)
 
-    this.add.image(centerX - spacing, y, 'rock')
-    .setInteractive({ useHandCursor: true })
-    .setScale(0.5)
-    .on('pointerdown', () => this.makeChoice('rock'))
+    // Rock Button
+    const rockBtn = this.add.image(480, 800, 'rockbutton').setInteractive().setScale(2.0)
+    rockBtn.on('pointerdown', () => {
+      this.playerChoice = 'rock'
+      this.showChoice()
+    })
 
-  this.add.image(centerX, y, 'paper')
-    .setInteractive({ useHandCursor: true })
-    .setScale(0.5)
-    .on('pointerdown', () => this.makeChoice('paper'))
+    // Paper Button
+    const paperBtn = this.add.image(960, 800, 'paperbutton').setInteractive().setScale(2.0)
+    paperBtn.on('pointerdown', () => {
+      this.playerChoice = 'paper'
+      this.showChoice()
+    })
 
-  this.add.image(centerX + spacing, y, 'scissors')
-    .setInteractive({ useHandCursor: true })
-    .setScale(0.5)
-    .on('pointerdown', () => this.makeChoice('scissors'))
+    // Scissors Button
+    const scissorsBtn = this.add.image(1440, 800, 'scissorsbutton').setInteractive().setScale(2.0)
+    scissorsBtn.on('pointerdown', () => {
+      this.playerChoice = 'scissors'
+      this.showChoice()
+    })
+  }
 
-  // Computer choice image
-  this.computerImage = this.add.image(centerX, 250, 'rock').setScale(0.5).setVisible(false)
+  showChoice() {
+    // Hide the previous image
+    if (this.choiceImage) {
+      this.choiceImage.setVisible(false)
+    }
+
+    // Show the correct image based on playerChoice
+    if (this.playerChoice === 'rock') {
+      this.choiceImage = this.add.image(960, 400, 'rock').setScale(0.5)
+    } else if (this.playerChoice === 'paper') {
+      this.choiceImage = this.add.image(960, 400, 'paper').setScale(0.5)
+    } else if (this.playerChoice === 'scissors') {
+      this.choiceImage = this.add.image(960, 400, 'scissors').setScale(0.5)
+    }
+  }
 }
+
+export default GameScene
