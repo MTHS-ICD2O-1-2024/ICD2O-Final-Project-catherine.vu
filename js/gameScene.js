@@ -47,7 +47,7 @@ class GameScene extends Phaser.Scene {
     })
 
     // Rock Button
-    const rockBtn = this.add.image(500, 800, 'rockbutton').setInteractive().setScale(1.5)
+    const rockBtn = this.add.image(550, 800, 'rockbutton').setInteractive().setScale(1.5)
     rockBtn.on('pointerdown', () => {
       this.playerChoice = 'rock'
       this.computerChoice = this.getComputerChoice()
@@ -80,15 +80,20 @@ class GameScene extends Phaser.Scene {
   getComputerChoice() {
     // Generate a random number between 1 and 3
     const randomNumber = Math.floor(Math.random() * 3) + 1
+    
+    let choice 
 
     // Map the number to a choice
     if (randomNumber === 1) {
-      return 'rock'
+      choice = 'rock'
     } else if (randomNumber === 2) {
-      return 'paper'
+    choice = 'paper'
     } else {
-      return 'scissors'
+      choice = 'scissors'
     }
+
+       // Store the choice in the instance variable
+    this.computerChoice = choice
   }
 
   showChoice() {
