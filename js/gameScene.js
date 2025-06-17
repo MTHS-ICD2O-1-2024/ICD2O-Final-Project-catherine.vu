@@ -17,6 +17,9 @@ class GameScene extends Phaser.Scene {
     this.playerChoice = null
     this.computerChoiceImage = null
     this.computerChoice = null
+    this.score = 0
+    this.scoreText = null
+    this.resultText = null
   }
 
   preload() {
@@ -33,32 +36,44 @@ class GameScene extends Phaser.Scene {
     // Background
     this.background = this.add.image(0, 0, 'gameSceneBackground').setOrigin(0, 0).setScale(2.0)
 
+    this.scoreText = this.add.text(20, 20, 'Score: 0', {
+      fontSize: '32px',
+      color: '#000000',
+    })
+
+    this.resultText = this.add.text(20, 60, '', {
+      fontSize: '28px',
+      color: '#000000',
+    })
+
     // Rock Button
-    const rockBtn = this.add.image(960, 400, 'rockbutton').setInteractive().setScale(1.5)
+    const rockBtn = this.add.image(500, 800, 'rockbutton').setInteractive().setScale(1.5)
     rockBtn.on('pointerdown', () => {
       this.playerChoice = 'rock'
       this.computerChoice = this.getComputerChoice()
       this.showChoice()
       this.showComputerChoice()
+      this.checkWinner()
     })
 
     // Paper Button
-    const paperBtn = this.add.image(960, 800, 'paperbutton').setInteractive().setScale(1.5)
+    const paperBtn = this.add.image(900, 800, 'paperbutton').setInteractive().setScale(1.5)
     paperBtn.on('pointerdown', () => {
       this.playerChoice = 'paper'
       this.computerChoice = this.getComputerChoice()
       this.showChoice()
       this.showComputerChoice()
-
+      this.checkWinner()
     })
 
     // Scissors Button
-    const scissorsBtn = this.add.image(1440, 800, 'scissorsbutton').setInteractive().setScale(1.5)
+    const scissorsBtn = this.add.image(1300, 800, 'scissorsbutton').setInteractive().setScale(1.5)
     scissorsBtn.on('pointerdown', () => {
       this.playerChoice = 'scissors'
       this.computerChoice = this.getComputerChoice()
       this.showChoice()
       this.showComputerChoice()
+      this.checkWinner()
     })
   }
 
@@ -74,7 +89,7 @@ class GameScene extends Phaser.Scene {
     } else {
       return 'scissors'
     }
-  }  
+  }
 
   showChoice() {
     // Hide the previous image
@@ -84,15 +99,15 @@ class GameScene extends Phaser.Scene {
 
     // Show the correct image based on playerChoice
     if (this.playerChoice === 'rock') {
-      this.choiceImage = this.add.image(960, 400, 'rock').setScale(0.5)
+      this.choiceImage = this.add.image(900, 400, 'rock').setScale(0.5)
     } else if (this.playerChoice === 'paper') {
       this.choiceImage = this.add.image(960, 400, 'paper').setScale(0.5)
     } else if (this.playerChoice === 'scissors') {
       this.choiceImage = this.add.image(960, 400, 'scissors').setScale(0.5)
-      }      
     }
+  }
 
-    showComputerChoice() {
+  showComputerChoice() {
     // Hide the previous computer image
     if (this.computerChoiceImage) {
       this.computerChoiceImage.setVisible(false)
@@ -106,8 +121,49 @@ class GameScene extends Phaser.Scene {
     } else if (this.computerChoice === 'scissors') {
       this.computerChoiceImage = this.add.image(1300, 400, 'scissors').setScale(0.5)
     }
-   }
   }
+      checkWinner() {
+        // checking if there is a winner
+        let player = this.playerChoice
+        let computer = this.computerChoice
 
+        if (player === computer) {
+          this.resultText.setText("It's a tie!")
+          this.resultText.setColor('#ffffff')
+        } else {
+          let playerWins = false
+
+          if (player === 'rock') {
+            if (computer === 'scissors') {
+              playerWins = true
+            }
+          } else if (player === 'paper') {
+            if (computer === 'rock') {
+              playerWins = true
+            }
+          } else if (player === 'scissors') {
+            if (computer === 'paper') {
+              playerWins = true
+            }
+          }
+
+          if (playerWins) {
+            this.score = this.score + 1
+            this.scoreText.setText('Score: ' + this.score)
+            this.resultText.setText('You Won! 🎉')
+            this.resultText.setColor('#ffffff')
+          } else {
+            this.resultText.setText(' Game over! You Lost!')
+            this.resultText.setColor('#ffffff')
+            this.score = 0
+            this.scoreText.setText('Score: 0')
+          }
+          // Hide result text after 2.5 seconds
+          this.time.delayedCall(2000, () => {
+            this.resultText.setText('')
+            })
+          }
+        }
+      }
 
 export default GameScene
